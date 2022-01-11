@@ -13,7 +13,7 @@
 10. printDoubleMassFloat(float **mass, int height, int width) - Выводит на экран числа с плавающей точкой двумерного массива
 11. reverse(char *mass) - Переворачивает строку
 12. replace(char *mass, char oldSym, char newSym) - Замена всех вхождений символа oldSym на newSym
-13. set(int *b, int k) - Ф-ция удаляет из массива повторяющиеся элементы
+13. set(int *mass, int lenhtMass) - Ф-ция удаляет из массива повторяющиеся элементы
 14. sort(int *mass, int k) - Функция сортировки массива по возрастанию
 15. max(const long long int *mass, int k) - Возвращает максимальный элемент массива
 16. min(const long long int *mass, int k) - Функция нахождения минимума в массиве
