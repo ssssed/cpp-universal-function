@@ -135,6 +135,10 @@ void printDoubleMassFloat(float **mass, int height, int width)
 
 void reverse(char *mass)
 {
+    /* Переворачивает строку.
+       Аналог функции replace() в Python.
+       :mass - строка, которуб будем переворачивать;
+    */
     unsigned long k = strlen(mass);
     char input[len(mass)];
     strcpy(input, mass);
@@ -158,7 +162,7 @@ void replace(char *mass, char oldSym, char newSym)
             mass[i] = newSym;
 }
 
-int set_cur_array(int *b, int k)
+int set(int *mass, int lenhtMass)
 {
     /* Ф-ция удаляет из массива повторяющиеся элементы.
     Аналог ф-ции set() из python.
@@ -166,22 +170,22 @@ int set_cur_array(int *b, int k)
     :b - указатель на массив;
     :k - длина массива;
     */
-    for (int i = 0; i < k; i++)
+    for (int i = 0; i < lenhtMass; i++)
     {
-        for (int r = i + 1; r < k; r++)
+        for (int r = i + 1; r < lenhtMass; r++)
         {
-            if (b[i] == b[r])
+            if (mass[i] == mass[r])
             {
-                for (int g = r; g < k; g++)
+                for (int g = r; g < lenhtMass; g++)
                 {
-                    b[g] = b[g + 1];
+                    mass[g] = mass[g + 1];
                 }
-                k--;
+                lenhtMass--;
                 r--;
             }
         }
     }
-    return k;
+    return lenhtMass;
 }
 
 void sort(int *mass, int k)
