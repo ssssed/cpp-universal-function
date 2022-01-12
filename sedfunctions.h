@@ -129,7 +129,7 @@ void printDoubleMassFloat(float **mass, int height, int width)
     printf("\n---------------------Array---------------------\n");
     for (int i = 0; i < height; i++)
         for (int j = 0; j < width; j++)
-            printf("%f", mass[i][j]);
+            printf(" %f ", mass[i][j]);
     printf("-----------------------------------------------\n");
 }
 
@@ -261,8 +261,13 @@ long long int sum(const int *mass, int k)
     return s;
 }
 
-char *removeNew(char *mass, char sym)
+char *removeSym(char *mass, char sym)
 {
+    /* Удаляет символ из строки.
+     Аналог функции remove() в Python.
+    :mass - строка, из которой будем удалять символ;
+    :sym - символ, который нужно удалить;
+    */
     char *res = (char *)malloc(len(mass));
     int j = 0;
     for (int i = 0; mass[i] != '\0'; i++)
@@ -277,6 +282,10 @@ char *removeNew(char *mass, char sym)
 
 int *delitNum(int num, int &len)
 {
+    /* Поиск всех делителей числа.
+    :num - число, у которого будем искать все делители;
+    :len - длинна масива делителей, нужно, чтобы потом можно было пользоваться массивом делителей;
+    */
     int *res = (int *)malloc(num * sizeof(int));
     for (int i = 1; i < num; i++)
     {
@@ -291,6 +300,9 @@ int *delitNum(int num, int &len)
 
 int countCharInStr(char *mass)
 {
+    /* Считает количество букв в строке.
+    :mass - строка, в которой будем считать количество букв;
+    */
     int count = 0;
 
     for (int i = 0; i < len(mass); i++)
@@ -305,6 +317,11 @@ int countCharInStr(char *mass)
 
 void inputMatrix(int **m, int height, int width)
 {
+    /* Ввод матрицы с клавиатуры.
+    :m - пустая матрица(динамический двумерный массив);
+    :height - количество строк матрицы;
+    :width - количество столбцов в строке;
+    */
     for (int i = 0; i < height; i++)
     {
         m[i] = (int *)malloc(sizeof(int) * width);
@@ -318,6 +335,12 @@ void inputMatrix(int **m, int height, int width)
 
 int **sumMatrix(int **m1, int **m2, int heightFirstMatrix, int widthFirstMatrix)
 {
+    /* Сумма двух ОДИНАКОВЫХ матриц.
+    :m1 - первая заполненная матрицы(динамический двумерный массив);
+    :m2 - вторая заполненная матрица(динамический двумерный массив);
+    :heightFirstMatrix - количество строк матрицы;
+    :widthFirstMatrix - количество столбцов в строке;
+    */
     int **res = (int **)malloc(heightFirstMatrix * sizeof(int *));
     for (int i = 0; i < heightFirstMatrix; i++)
     {
@@ -326,4 +349,50 @@ int **sumMatrix(int **m1, int **m2, int heightFirstMatrix, int widthFirstMatrix)
             res[i][j] = m1[i][j] + m2[i][j];
     }
     return res;
+}
+
+float meanSquareOddItemMatrixUp(int **mass, int heigth, int width)
+{
+    /* Среднеарифметическая сумма нечетныхм элементов матрицы выше главной диагонали.
+    :mass - заполненная матрицы(динамический двумерный массив);
+    :heigth - количество строк матрицы;
+    :width - количество столбцов в строке;
+    */
+    float res = 0; // среднеарифметическое всех нечетных чисел матрицы выше главной диагонали;
+    int count = 0; // количество подходящих нам элементов матрицы;
+    for (int i = 0; i < heigth; i++)
+    {
+        for (int j = i + 1; j < width; j++)
+        {
+            if (mass[i][j] % 2 != 0)
+            {
+                res += mass[i][j];
+                count++;
+            }
+        }
+    }
+    return res / count;
+}
+
+float meanSquareEvenItemMatrixUp(int **mass, int heigth, int width)
+{
+    /* Среднеарифметическая сумма четныхм элементов матрицы выше главной диагонали.
+    :mass - заполненная матрицы(динамический двумерный массив);
+    :heigth - количество строк матрицы;
+    :width - количество столбцов в строке;
+    */
+    float res = 0; // среднеарифметическое всех четных чисел матрицы выше главной диагонали;
+    int count = 0; // количество подходящих нам элементов матрицы;
+    for (int i = 0; i < heigth; i++)
+    {
+        for (int j = i + 1; j < width; j++)
+        {
+            if (mass[i][j] % 2 == 0)
+            {
+                res += mass[i][j];
+                count++;
+            }
+        }
+    }
+    return res / count;
 }
