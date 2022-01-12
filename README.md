@@ -1,5 +1,11 @@
 # cpp-universal-function
 
+# How to install:
+1. Download sedfunctions.h
+2. Put this file in the folder with your project
+3. Write at the beginning of your file: #include "sedfunctions.h"
+4. Finished
+
 # Function list:
 1. len(char *mass) - Считает длинну строки
 2. trimStr(char *mass) - Задает динамическуму массиву размер по колличеству его символов, чтобы не занимать память просто так
@@ -23,3 +29,5 @@
 20. countCharInStr(char *mass) - Находит количество символов в строке
 21. inputMatrix(int **m, int height, int width) - Ввод матрицы с клавиатуры
 22. sumMatrix(int **m1, int **m2, int heightFirstMatrix, int widthFirstMatrix) - Сумма двух матрицы ОДИНАКОГО размера
+23. meanSquareOddItemMatrixUp(int **mass, int heigth, int width) - Среднеарифметическая сумма нечетных элементов матрицы выше главной диагонали
+24. meanSquareEvenItemMatrixUp(int **mass, int heigth, int width) - Среднеарифметическая сумма четных элементов матрицы выше главной диагонали
