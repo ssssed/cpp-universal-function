@@ -104,31 +104,31 @@ void printDoubleMassStr(char **mass, int needCountToEnter)
     printf("-----------------------------------------------\n");
 }
 
-void printDoubleMassInt(int **mass, int height, int width)
+void printDoubleMassInt(int **mass, int width, int height)
 {
     /* Выводит на экран целые числа двумерного массива.
        :mass - двумерный массив целых чисел в котором все строки будут заполнены;
        :needCountToEnter - количество строк двумерного массива;
     */
     printf("\n------------Array-------------");
-    for (int i = 0; i < height; i++)
+    for (int i = 0; i < width; i++)
     {
         printf("\n");
-        for (int j = 0; j < width; j++)
+        for (int j = 0; j < height; j++)
             printf(" %d ", mass[i][j]);
     }
     printf("\n------------------------------\n");
 }
 
-void printDoubleMassFloat(float **mass, int height, int width)
+void printDoubleMassFloat(float **mass, int width, int height)
 {
     /* Выводит на экран числа с плавающей точкой двумерного массива.
        :mass - двумерный массив чисел с плавающей точкой в котором все строки будут заполнены;
        :needCountToEnter - количество строк двумерного массива;
     */
     printf("\n---------------------Array---------------------\n");
-    for (int i = 0; i < height; i++)
-        for (int j = 0; j < width; j++)
+    for (int i = 0; i < width; i++)
+        for (int j = 0; j < height; j++)
             printf(" %f ", mass[i][j]);
     printf("-----------------------------------------------\n");
 }
@@ -315,17 +315,17 @@ int countCharInStr(char *mass)
     return count;
 }
 
-void inputMatrix(int **m, int height, int width)
+void inputMatrix(int **m, int width, int height)
 {
     /* Ввод матрицы с клавиатуры.
     :m - пустая матрица(динамический двумерный массив);
     :height - количество строк матрицы;
     :width - количество столбцов в строке;
     */
-    for (int i = 0; i < height; i++)
+    for (int i = 0; i < width; i++)
     {
-        m[i] = (int *)malloc(sizeof(int) * width);
-        for (int j = 0; j < width; j++)
+        m[i] = (int *)malloc(sizeof(int) * height);
+        for (int j = 0; j < height; j++)
         {
             printf("Input matrix element: ");
             scanf("%d", &m[i][j]);
@@ -333,7 +333,7 @@ void inputMatrix(int **m, int height, int width)
     }
 }
 
-int **sumMatrix(int **m1, int **m2, int heightFirstMatrix, int widthFirstMatrix)
+int **sumMatrix(int **m1, int **m2, int widthFirstMatrix, int heightFirstMatrix)
 {
     /* Сумма двух ОДИНАКОВЫХ матриц.
     :m1 - первая заполненная матрицы(динамический двумерный массив);
@@ -341,17 +341,17 @@ int **sumMatrix(int **m1, int **m2, int heightFirstMatrix, int widthFirstMatrix)
     :heightFirstMatrix - количество строк матрицы;
     :widthFirstMatrix - количество столбцов в строке;
     */
-    int **res = (int **)malloc(heightFirstMatrix * sizeof(int *));
-    for (int i = 0; i < heightFirstMatrix; i++)
+    int **res = (int **)malloc(widthFirstMatrix * sizeof(int *));
+    for (int i = 0; i < widthFirstMatrix; i++)
     {
-        res[i] = (int *)malloc(sizeof(int) * widthFirstMatrix);
-        for (int j = 0; j < widthFirstMatrix; j++)
+        res[i] = (int *)malloc(sizeof(int) * heightFirstMatrix);
+        for (int j = 0; j < heightFirstMatrix; j++)
             res[i][j] = m1[i][j] + m2[i][j];
     }
     return res;
 }
 
-float meanSquareOddItemMatrixUp(int **mass, int heigth, int width)
+float meanSquareOddItemMatrixUp(int **mass, int width, int heigth)
 {
     /* Среднеарифметическая сумма нечетныхм элементов матрицы выше главной диагонали.
     :mass - заполненная матрицы(динамический двумерный массив);
@@ -360,9 +360,9 @@ float meanSquareOddItemMatrixUp(int **mass, int heigth, int width)
     */
     float res = 0; // среднеарифметическое всех нечетных чисел матрицы выше главной диагонали;
     int count = 0; // количество подходящих нам элементов матрицы;
-    for (int i = 0; i < heigth; i++)
+    for (int i = 0; i < width; i++)
     {
-        for (int j = i + 1; j < width; j++)
+        for (int j = i + 1; j < heigth; j++)
         {
             if (mass[i][j] % 2 != 0)
             {
@@ -374,7 +374,7 @@ float meanSquareOddItemMatrixUp(int **mass, int heigth, int width)
     return res / count;
 }
 
-float meanSquareEvenItemMatrixUp(int **mass, int heigth, int width)
+float meanSquareEvenItemMatrixUp(int **mass, int width, int heigth)
 {
     /* Среднеарифметическая сумма четныхм элементов матрицы выше главной диагонали.
     :mass - заполненная матрицы(динамический двумерный массив);
@@ -383,9 +383,9 @@ float meanSquareEvenItemMatrixUp(int **mass, int heigth, int width)
     */
     float res = 0; // среднеарифметическое всех четных чисел матрицы выше главной диагонали;
     int count = 0; // количество подходящих нам элементов матрицы;
-    for (int i = 0; i < heigth; i++)
+    for (int i = 0; i < width; i++)
     {
-        for (int j = i + 1; j < width; j++)
+        for (int j = i + 1; j < heigth; j++)
         {
             if (mass[i][j] % 2 == 0)
             {
@@ -394,5 +394,92 @@ float meanSquareEvenItemMatrixUp(int **mass, int heigth, int width)
             }
         }
     }
+    printf("count=%d\n", count);
     return res / count;
+}
+
+int find(char *mass, char sym)
+{
+    /* Поиск индекса символа в строке.
+    :mass - массив символов(строка);
+    :sym - символ, индекс которого мы будем искать;
+    */
+    int i = 0;
+    for (; mass[i] != '\0'; i++)
+        if (mass[i] == sym)
+            return i;
+    return -1;
+}
+
+int findC(char *mass, char sym)
+{
+    /* Поиск количества символа в строке.
+    :mass - массив символов(строка);
+    :sym - символ, индекс которого мы будем искать;
+    */
+    int k = 0;
+    for (int i = 0; mass[i] != '\0'; i++)
+        if (mass[i] == sym)
+            k++;
+    return k;
+}
+
+int findUnderStr(char *mass, char *underStr)
+{
+    /* Поиск индекса начала подстроки в строке.
+    :mass - массив символов(строка);
+    :underStr - подстрока индекс начала которой мы ищем;
+    */
+    int i = 0, j = 0;
+    for (; mass[i] != '\0'; i++)
+    {
+        if (mass[i] == underStr[j])
+            j++;
+        if (j == len(underStr))
+            return i - (len(underStr) - 1);
+    }
+    return -1;
+}
+
+char *split(char *mass, char sym)
+{
+    /* Запоминает слово после символа(sym) разбивки строки и удаляет это слово из строки.
+    :mass - массив символов(строка);
+    :sym - символ, по которому мы будем разбивать на отдельные слова строку;
+    */
+    char *res = (char *)malloc(100);
+    int k = 0;
+    for (int i = 0; mass[i] != '\0'; i++)
+    {
+        if (mass[i] == sym)
+        {
+            for (int j = i + 1; mass[j] != '\0'; j++)
+            {
+                res[k] = mass[j];
+                k++;
+                mass[j] = ' ';
+            }
+        }
+    }
+    res = trimStr(res);
+    return res;
+}
+
+char *removeUnderStr(char *mass, char *str)
+{
+    /* Удаляет подстроку из строки.
+    :mass - массив символов(строка);
+    :str - подстрока, которую будем удалять из строки;
+    */
+    int i = 0;
+    if (findUnderStr(mass, str) != -1)
+    {
+        i = findUnderStr(mass, str);
+    }
+    for (i; i < len(str); i++)
+    {
+        mass[i] = mass[i + len(str)];
+    }
+    mass = trimStr(mass);
+    return mass;
 }
