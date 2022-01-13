@@ -280,6 +280,28 @@ char *removeSym(char *mass, char sym)
     return res;
 }
 
+char *removeOneSym(char *mass, char sym)
+{
+    /* Удаляет символ из строки.
+     Аналог функции remove() в Python.
+    :mass - строка, из которой будем удалять символ;
+    :sym - символ, который нужно удалить;
+    */
+    char *res = (char *)malloc(len(mass));
+    int j = 0;
+    for (int i = 0; mass[i] != '\0'; i++)
+    {
+        res[j] = mass[i];
+        if (res[j] != sym)
+        {
+            j++;
+            sym = '\n';
+        }
+    }
+    res[j] = '\n';
+    return res;
+}
+
 int *delitNum(int num, int &len)
 {
     /* Поиск всех делителей числа.
@@ -441,6 +463,26 @@ int findUnderStr(char *mass, char *underStr)
     return -1;
 }
 
+int findCountUnderStr(char *mass, char *underStr)
+{
+    /* Поиск количества подстрок в строке.
+    :mass - массив символов(строка);
+    :underStr - подстрока;
+    */
+    int i = 0, j = 0, count = 1;
+    for (; mass[i] != '\0'; i++)
+    {
+        if (mass[i] == underStr[j])
+            j++;
+        if (j == len(underStr))
+        {
+            count++;
+            j = 0;
+        }
+    }
+    return count - 1;
+}
+
 char *split(char *mass, char sym)
 {
     /* Запоминает слово после символа(sym) разбивки строки и удаляет это слово из строки.
@@ -471,14 +513,24 @@ char *removeUnderStr(char *mass, char *str)
     :mass - массив символов(строка);
     :str - подстрока, которую будем удалять из строки;
     */
-    int i = 0;
+    int i = 0, tmp = 0;
     if (findUnderStr(mass, str) != -1)
     {
         i = findUnderStr(mass, str);
+        tmp = i;
     }
-    for (i; i < len(str); i++)
+    int k = len(str);
+    int l = 0;
+    while (k > 0)
     {
-        mass[i] = mass[i + len(str)];
+        i = tmp;
+        for (i; i < mass[i] != '\0'; i++)
+        {
+            mass[i] = mass[i + 1];
+        }
+        str = removeOneSym(str, str[0]);
+        str = trimStr(str);
+        k--;
     }
     mass = trimStr(mass);
     return mass;
