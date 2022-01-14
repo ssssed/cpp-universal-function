@@ -535,3 +535,35 @@ char *removeUnderStr(char *mass, char *str)
     mass = trimStr(mass);
     return mass;
 }
+
+int doubleMassCountString(char **mass, int needCountToEnter, char sym)
+{
+    int countStrints = 0;
+    for (int i = 0; i < needCountToEnter; i++)
+        countStrints += findC(mass[i], sym);
+    return countStrints;
+}
+
+char **splitDoubleMassBySym(char **mass, int needCountToEnter, char sym)
+{
+    int countStrints = doubleMassCountString(mass, needCountToEnter, 'A');
+    char **res = (char **)malloc(countStrints * sizeof(char *));
+    int i, j;
+    for (i = 0, j = -1; i < needCountToEnter; i++)
+    {
+        if (findC(mass[i], sym))
+        {
+            j++;
+            res[j] = mass[i];
+        }
+        else
+        {
+            int l = 0;
+            for (l = 0; mass[i][l] != '\0'; l++)
+                res[j][l + len(res[j])] = mass[i][l];
+            res[j] = trimStr(res[j]);
+            puts(res[j]);
+        }
+    }
+    return res;
+}
