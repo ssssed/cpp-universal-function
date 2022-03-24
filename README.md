@@ -1,5 +1,19 @@
 # cpp-universal-function
 
+# Описание
+Это файл с обычными функциями. Он поможет вам при изучении языка или для более удобной работы с простыми задачами.
+Создана для студентов первых курсов
+
+# Description
+This is a file with normal functions. It will help you when learning a language or to work more comfortably with simple tasks.
+Created for first-year students
+
+# Как установить
+1. Скачайте файл sedfunction.h
+2. Перенесите этот файл к вам в проект
+3. В начале вашего фашейла импортируйте файл: #include "sedfunction.h"
+4. Все готово
+
 # How to install:
 1. Download sedfunctions.h
 2. Put this file in the folder with your project
